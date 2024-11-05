@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Search, Mail, Bell, Files, ChevronDown, User } from 'lucide-react';
+import { Search, Mail, Bell, Files, ChevronDown, UserRound, LogOut } from 'lucide-react';
 import { useUser } from '../UserContext'; // Import the UserContext
 import cmti from '../../assets/cmti.png';
 import buhler from '../../assets/buhler.png';
+import cmtilogo from '../../assets/cmti_logo.png'
+import buhler1 from '../../assets/buh.png';
+import  '../../assets/css/header.css';
+
 
 const Header = () => {
   const { user, setUser } = useUser(); // Get the user data and setter function from the context
@@ -21,30 +25,60 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm relative ">
+    <header className="header-shadow relative flex items-center justify-between">
+      {/* <header className="bg-gradient-to-r from-persian-green-50 to-persian-green-50 shadow-sm relative flex items-center justify-between"></header> */}
       <div className="container mx-auto px-6 py-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 ">
+            {/* Logo container */}
+          <div className="">
             <img
-              src={buhler}
-              alt="Logo"
+            src={buhler1}
+            alt="buhler Logo"
+            style={{
+              overflow: 'auto',
+              maxWidth: '100%', // Responsive max width
+              height: '32px',
+            }}
+            className="block md:hidden mr-6" // Display only on mobile
+          />
+          </div>
+
+          <div className="flex items-center justify-end ml-auto flex-1">
+          <img
+            src={buhler1}
+            alt="buhler Logo"
+            style={{
+              overflow: 'auto',
+              position: 'fixed',
+              height: '32px',
+            }}
+            className="hidden md:block" // Display only on desktop
+          />
+          </div>
+
+          </div>
+          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 mr-20">
+            <img
+              src={cmtilogo}
+              alt="cmti Logo"
               style={{
                 overflow: 'auto',
                 height: '32px',
                 position: 'fixed',
               }}
+               className="block md:hidden mr-16" // Display only on mobile
             />
-          </div>
-          <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-4 mr-10">
+
             <img
-              src={cmti}
-              alt="Logo"
+              src={cmtilogo}
+              alt="cmti Logo"
               style={{
                 overflow: 'auto',
-                height: '36px',
-                position: 'fixed',
+                height: '40px',
               }}
+              className="hidden md:block mr-16"  // Display only on desktop
             />
             {/* <div className="relative mr-6">
               <input
@@ -55,49 +89,48 @@ const Header = () => {
               <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
             </div> */}
           </div>
-            {/* <div className="relative">
-              <Mail onClick={toggleMail} className="text-gray-400 cursor-pointer" size={20} />
-              {isMailOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Inbox</a>
-                  
-                </div>
-              )}
-            </div> */}
-            <div className="relative">
-              <Bell onClick={toggleNotification} className="text-gray-400 cursor-pointer" size={20} />
-              <span className="absolute -top-1 -right-1 bg-green-500 text-xs text-white rounded-full h-4 w-4 flex items-center justify-center">4</span>
+            {/* Bell Icon with Notification Dot */}
+            <div className="relative p-3 bg-white rounded-full shadow cursor-pointer" onClick={toggleNotification}>
+              <Bell className="text-gray-600" size={20} />
+              <span className="absolute top-1 right-1 bg-red-500 h-2 w-2 rounded-full"></span>
               {isNotificationOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">New Notification</a>
-                  {/* Add more notification options here */}
                 </div>
               )}
             </div>
+            
+            
+
             {/* <Files className="text-gray-400" size={20} /> */}
-            <div className="relative">
-              <div className="flex items-center space-x-2 cursor-pointer">
-                <User className="h-8 w-8 text-gray-600" />
+            <div className="relative ">
+              <div className="flex items-center space-x-1 cursor-pointer">
+             {/* User Profile Icon with Notification Dot */}
+            <div className="relative w-10 h-10 bg-white rounded-full shadow overflow-hidden cursor-pointer flex items-center justify-center" onClick={toggleUserMenu}>
+              <UserRound className="text-gray-600 w-6 h-6" /> {/* Adjust size if needed */}
+            </div>
                 <span>{user ? user.username : 'User'}</span> {/* Dynamically show username */}
                 <ChevronDown onClick={toggleUserMenu} className="text-gray-400" size={16} />
               </div>
-              {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-10">
-                  {user && (
-                    <div className="px-4 py-3 border-b">
-                      <p className="text-sm leading-5 font-medium text-gray-900">{user.username}</p>
-                      <p className="text-sm leading-5 text-gray-500">{user.email}</p> {/* Dynamically show email */}
-                      <button className="mt-2 px-4 py-1 text-sm text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
-                        View Profile
-                      </button>
+                {isUserMenuOpen && (
+                      <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+                        {user && (
+                      <div className="px-4 py-3 border-b">
+                        <p className="text-sm leading-5 font-medium text-gray-900">{user.username}</p>
+                        <p className="text-sm leading-5 text-gray-500">{user.email}</p> {/* Dynamically show email */}
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between w-full">
+                        <button onClick={handleLogout} className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-bold flex items-center">
+                            <LogOut className="text-gray-400" size={20} />
+                            <span className="ml-2">Logout</span>
+                        </button>
+                        <button onClick={() => setIsUserMenuOpen(false)} className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+                            <span className="ml-2">Cancel</span>
+                        </button>
                     </div>
-                  )}
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</a>
-                  {/* <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Balance</a> */}
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Account Setting</a>
-                  <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
-                </div>
-              )}
+                    </div>
+                )}
             </div>
           </div>
         </div>

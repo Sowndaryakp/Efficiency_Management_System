@@ -73,7 +73,7 @@ const MenuItem = ({ icon: Icon, label, onClick, isActive, hasNotification, notif
 );
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [activeItem, setActiveItem] = useState('admin_dashboard');
   const [isCasualLabourOpen, setIsCasualLabourOpen] = useState(false); // New state for Casual Labour dropdown
   const navigate = useNavigate();
@@ -92,7 +92,6 @@ const Sidebar = () => {
   const handleCasualLabourClick = () => {
     setIsCasualLabourOpen((prev) => !prev); // Toggle Casual Labour dropdown
   };
-
 
   return (
     <div

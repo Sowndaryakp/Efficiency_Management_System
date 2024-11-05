@@ -13,7 +13,7 @@ const Login = ({ setIsAuthenticated, setRole }) => { // Add setRole as a prop
   const handleLogin = () => {
     // Default credentials
     const adminCredentials = { username: 'admin', password: 'admin' };
-    const userCredentials = { username: 'user', password: 'user' };
+    const userCredentials = { username: 'use', password: 'use' };
 
     if (!username || !password) {
       setError('Username and password are required.');
@@ -41,7 +41,7 @@ const Login = ({ setIsAuthenticated, setRole }) => { // Add setRole as a prop
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4" style={{ background: 'linear-gradient(to bottom, #effefb, #c7fff5, #90ffea, #51f7df, #1de4cd)' }} p-4>
+    <div className="flex items-center justify-center min-h-screen" style={{ background: 'linear-gradient(to bottom, #f5f7fa, #eaeef4, #d0dbe7, #a6bcd3, #7799b9)' }} p-4>
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md ">
         <h2 className="text-2xl mb-6 text-center text-persian-green-90">Login</h2>
         <Input 
